@@ -6,12 +6,15 @@ let swap = document.getElementById("swap");
 let select = document.getElementById("selectTime");
 let start = document.getElementById("str");
 let reset = document.getElementById("rst");
+let pse = document.getElementById("pause");
 var st = null;
 
 function disable(){
     swap.disabled=true;
     start.disabled=true;
     reset.disabled=true;
+    pse.disabled = true;
+
 }
 
 disable();
@@ -40,6 +43,7 @@ function timer(){
     start.disabled=true;
     reset.disabled = false;
     swap.disabled = false;
+    pse.disabled=false;
     if(min1.isrunning== true){
     if(min1.minute==0 && sec1.second==0){
         min1.minute =0;
@@ -76,6 +80,7 @@ start.addEventListener("click", function(){
             timer();
         }, 1000)
     }
+    
     startTimer();
 });
 
@@ -86,6 +91,8 @@ function stopTimer(){
     clearInterval(st);
     
 }
+
+// swap function
 
 function swaping(){
     if(min1.isrunning==true){
@@ -98,6 +105,35 @@ function swaping(){
 }
 
 swap.addEventListener("click", swaping);
+
+// pause function
+
+let clicked = false;
+
+function pause(){
+    if(clicked == false){
+        if(min1.isrunning==true){
+            min1.isrunning = false;
+        }else if(min2.isrunning == true){
+            min2.isrunning = false;
+        }
+    pse.innerText = 'Resume';
+    clicked = true;
+    }
+    else if(clicked == true) {
+        if(min1.isrunning==false){
+            min1.isrunning=true;
+        }else if(min2.isrunning==false){
+            min2.isrunning = true;
+        }
+        clicked = false;
+        pse.innerText= 'Pause';
+    }
+    console.log(clicked);
+}
+pse.addEventListener("click", pause)
+
+
 
 reset.addEventListener("click", function(){
     min1.innerText = "00";
